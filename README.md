@@ -18,4 +18,4 @@ to start a new feature
 
 to finish the feature 
     
-    git feature finnish [feature name]
+    git feature finish [feature name]
