@@ -13,5 +13,9 @@ I sugest installing like this
 how to use it
 =============
 to start a new feature 
+    
     git feature start
+
 to finish the feature 
+    
+    git feature finnish [feature name]
