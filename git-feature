@@ -1,6 +1,26 @@
-#!/bin/sh
+#!/bin/bash
 dev_branch='development'
 
 sub_start(){
+  if [ -z $1]; then 
+    echo "Error: you must give a feature name" >&2
+    exit 1
+  fi
   git checkout -b feature-$1 $dev_branch
 }
+
+subcommand=$1
+case $subcommand in
+  "" | "-h" | "--help")
+    sub_help
+    ;;
+  *)
+    shift
+    sub_${subcommand} $@
+    if [ $? = 127 ]; then
+      echo "Error: '$subcommand' is not a known subcommand." >&2
+      echo " Run '$ProgName --help' for a list of known subcommands." >&2
+      exit 1
+    fi
+    ;;
+esac
