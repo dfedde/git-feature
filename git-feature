@@ -1,12 +1,26 @@
 #!/bin/bash
+set -e
 dev_branch='development'
 
 sub_start(){
-  if [ -z $1]; then 
+  if [ -z $1 ]; then 
     echo "Error: you must give a feature name" >&2
     exit 1
   fi
   git checkout -b feature-$1 $dev_branch
+}
+
+sub_finish(){
+  if [ -z $1 ]; then
+    branch=`git rev-parse --abbrev-ref HEAD`
+  else
+    branch=$1
+  fi
+    git pull origin develop
+    git checkout develop
+    git merge $branch 
+    git push
+    git branch -d $branch
 }
 
 subcommand=$1
