@@ -16,8 +16,8 @@ sub_finish(){
   else
     branch=$1
   fi
-    git pull origin develop
-    git checkout develop
+    git pull origin $dev_branch
+    git checkout $dev_branch
     git merge $branch 
     git push
     git branch -d $branch
