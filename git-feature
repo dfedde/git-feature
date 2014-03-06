@@ -1,1 +1,6 @@
 #!/bin/sh
+dev_branch='development'
+
+sub_start(){
+  git checkout -b feature-$1 $dev_branch
+}
