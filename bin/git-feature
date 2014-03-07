@@ -30,7 +30,7 @@ sub_finish(){
     if [ $? -ne 0 ]; then
      exit 1 
     fi
-    git push $dev_branch
+    git push $remote $dev_branch
     if [ $? -ne 0 ]; then
      git checkout $branch
      exit 1 
