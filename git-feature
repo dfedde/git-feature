@@ -1,6 +1,6 @@
 #!/bin/bash
-set -e
 dev_branch='development'
+remote='origin'
 
 sub_start(){
   if [ -z $1 ]; then 
@@ -11,16 +11,34 @@ sub_start(){
 }
 
 sub_finish(){
+  echo $1
   if [ -z $1 ]; then
     branch=`git rev-parse --abbrev-ref HEAD`
+    echo $branch
   else
     branch=$1
   fi
-    git pull origin $dev_branch
+    git pull $remote $dev_branch
+    if [ $? -ne 0 ]; then
+     exit 1 
+    fi
     git checkout $dev_branch
+    if [ $? -ne 0 ]; then
+     exit 1 
+    fi
     git merge $branch 
+    if [ $? -ne 0 ]; then
+     exit 1 
+    fi
     git push
+    if [ $? -ne 0 ]; then
+     git checkout $branch
+     exit 1 
+    fi
     git branch -d $branch
+    if [ $? -ne 0 ]; then
+     exit 1 
+    fi
 }
 
 subcommand=$1
