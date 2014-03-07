@@ -26,7 +26,7 @@ sub_finish(){
     if [ $? -ne 0 ]; then
      exit 1 
     fi
-    git merge $branch 
+    git merge $branch --no-ff 
     if [ $? -ne 0 ]; then
      exit 1 
     fi
