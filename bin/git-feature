@@ -41,6 +41,11 @@ sub_finish(){
     fi
 }
 
+sub_help(){
+  echo "Usage: git feature <subcomand>"
+  echo ""
+  echo "-h --help        display this help message"
+}
 subcommand=$1
 case $subcommand in
   "" | "-h" | "--help")
