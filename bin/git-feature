@@ -45,6 +45,14 @@ sub_help(){
   echo "Usage: git feature <subcomand>"
   echo ""
   echo "-h --help        display this help message"
+  echo ""
+  echo "Commands:"
+  echo ""
+  echo "start <name>     starts a new feature with <name>"
+  echo ""
+  echo "finish [name]    finish merger and push a feature."
+  echo "                 If name not given will use current branch"
+  echo ""
 }
 subcommand=$1
 case $subcommand in
