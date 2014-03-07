@@ -1,44 +1,53 @@
 #!/bin/bash
 dev_branch='development'
 remote='origin'
-
+feature_prefix='feature-'
+feature_sufix=''
 sub_start(){
   if [ -z $1 ]; then 
     echo "Error: you must give a feature name" >&2
     exit 1
   fi
-  git checkout -b feature-$1 $dev_branch
+  git checkout -b $feature_prefix$1$feature_sufix $dev_branch
 }
 
 sub_finish(){
-  echo $1
   if [ -z $1 ]; then
     branch=`git rev-parse --abbrev-ref HEAD`
-    echo $branch
   else
     branch=$1
   fi
-    git pull $remote $dev_branch
-    if [ $? -ne 0 ]; then
-     exit 1 
-    fi
-    git checkout $dev_branch
-    if [ $? -ne 0 ]; then
-     exit 1 
-    fi
-    git merge $branch --no-ff 
-    if [ $? -ne 0 ]; then
-     exit 1 
-    fi
-    git push $remote $dev_branch
-    if [ $? -ne 0 ]; then
-     git checkout $branch
-     exit 1 
-    fi
-    git branch -d $branch
-    if [ $? -ne 0 ]; then
-     exit 1 
-    fi
+  if [[ $branch != $feature_prefix*$feature_sufix ]];then
+    echo "Error: you are not on a feature branch."
+    echo "please give a feature branch name or checkout a feature branch"
+    exit 1
+  fi
+  echo "doing a get pull"
+  git pull $remote $dev_branch
+  if [ $? -ne 0 ]; then
+    exit 1 
+  fi
+  echo "checking out devbranch"
+  git checkout $dev_branch
+  if [ $? -ne 0 ]; then
+    exit 1 
+  fi
+  echo "merging feature into devbranch"
+  git merge $branch --no-ff 
+  if [ $? -ne 0 ]; then
+    exit 1 
+  fi
+  echo "pushing devbranch to the server"
+  git push $remote $dev_branch
+  if [ $? -ne 0 ]; then
+    git checkout $branch
+    exit 1 
+  fi
+  echo delete old branch
+  git branch -d $branch
+  if [ $? -ne 0 ]; then
+    exit 1 
+  fi
 }
 
 sub_help(){
@@ -54,6 +63,7 @@ sub_help(){
   echo "                 If name not given will use current branch"
   echo ""
 }
+
 subcommand=$1
 case $subcommand in
   "" | "-h" | "--help")
