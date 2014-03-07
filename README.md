@@ -8,7 +8,7 @@ All that needs to hapen to make this code work is for git-feature to be in the p
 I sugest installing like this
 
     git clone https://github.com/dfedde/git-feature.git /usr/local/share/
-    ln -s /usr/local/share/git-feature /usr/bin/
+    ln -s /usr/local/share/git-feature/bin/git-feature /usr/bin/
 
 how to use it
 =============
