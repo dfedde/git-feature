@@ -5,7 +5,7 @@ This script is designd to help you with the [git workflow]( https://www.atlassia
 Installation
 ============
 All that needs to hapen to make this code work is for the git-feature script, `bin/git-feature`, to be in the path.
-I sugest installing like this
+I suggest installing like this
 
     git clone https://github.com/dfedde/git-feature.git /usr/local/share/
     ln -s /usr/local/share/git-feature/bin/git-feature /usr/bin/
